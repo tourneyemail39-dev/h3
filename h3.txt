@@ -1,0 +1,120 @@
+import 'package:flutter/material.dart';
+
+class Calculator extends StatefulWidget {
+  @override
+  State<Calculator> createState() => _CalculatorState();
+}
+
+class _CalculatorState extends State<Calculator> {
+  final num1 = TextEditingController();
+  final num2 = TextEditingController();
+  String result = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Simple Calculator"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 10),
+            TextField(
+              controller: num1,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Enter first number",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: num2,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Enter second number",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
+
+            // Buttons row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    var n1 = double.tryParse(num1.text) ?? 0;
+                    var n2 = double.tryParse(num2.text) ?? 0;
+                    setState(() {
+                      result = (n1 + n2).toString();
+                      num1.clear();
+                      num2.clear();
+                    });
+                  },
+                  child: const Text("+"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    var n1 = double.tryParse(num1.text) ?? 0;
+                    var n2 = double.tryParse(num2.text) ?? 0;
+                    setState(() {
+                      result = (n1 - n2).toString();
+                      num1.clear();
+                      num2.clear();
+                    });
+                  },
+                  child: const Text("-"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    var n1 = double.tryParse(num1.text) ?? 0;
+                    var n2 = double.tryParse(num2.text) ?? 0;
+                    setState(() {
+                      result = (n1 * n2).toString();
+                      num1.clear();
+                      num2.clear();
+                    });
+                  },
+                  child: const Text("×"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    var n1 = double.tryParse(num1.text) ?? 0;
+                    var n2 = double.tryParse(num2.text) ?? 0;
+                    setState(() {
+                      result = n2 == 0 ? "Cannot divide by 0" : (n1 / n2).toString();
+                      num1.clear();
+                      num2.clear();
+                    });
+                  },
+                  child: const Text("÷"),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+            Center(
+              child: Text(
+                "Result: $result",
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
